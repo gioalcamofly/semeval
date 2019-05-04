@@ -1,7 +1,14 @@
 from nltk.corpus import stopwords
+from nltk.corpus import wordnet as wn
+from nltk.wsd import lesk
 from nltk import word_tokenize
 
-class Data:
+import sys
+
+reload(sys)
+sys.setdefaultencoding('iso-8859-15')
+
+class Semeval:
 
     #Some contractions with multiple expansions have been deleted for simplicity purposes
     contractions = {
@@ -111,12 +118,19 @@ class Data:
         self.score = score
 
         self.sentence1 = []
+        self.synsets1 = []
         self.sentence2 = []
+        self.synsets2 = []
 
         #Process text before introducing it on the lists
 
         self.sentence1 = self.processText(sentence1)
         self.sentence2 = self.processText(sentence2)
+
+        # Get synsets from wordnet
+
+        self.synsets1 = self.getSynsets(self.sentence1, sentence1)
+        self.synsets2 = self.getSynsets(self.sentence2, sentence2)
 
 
 
@@ -156,3 +170,12 @@ class Data:
                 words.append(word)
 
         return words
+
+    def getSynsets(self, sentence, original):
+
+        synsets = []
+
+        for word in sentence:
+            synsets.append(lesk(original, word))
+
+        return synsets

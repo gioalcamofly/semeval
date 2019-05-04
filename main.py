@@ -1,5 +1,6 @@
 import csv
-from data import Data
+from data import Semeval
+import similarities as sim
 
 f = open('../stsbenchmark/sts-test.csv')
 
@@ -10,9 +11,24 @@ data = []
 
 for row in reader:
 
-    tmp = Data(row[0], row[1], row[2], row[4], row[5], row[5])
+    tmp = Semeval(row[0], row[1], row[2], row[4], row[5], row[6])
     data.append(tmp)
 
 
-print(data[5].sentence2)
+sentence1 = data[1].sentence1
+sentence2 = data[1].sentence2
+
+synsets1 = data[1].synsets1
+synsets2 = data[1].synsets2
+
+print(sentence1)
+
+print(sentence2)
+
+aguirre = sim.aguirreSimilarity(sentence1, sentence2)
+
+print (aguirre)
+
+sim.liuWangSimilarity(synsets1, synsets2)
+
 
