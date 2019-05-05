@@ -15,20 +15,24 @@ for row in reader:
     data.append(tmp)
 
 
-sentence1 = data[1].sentence1
-sentence2 = data[1].sentence2
+# sentence1 = data[1].sentence1
+# sentence2 = data[1].sentence2
+#
+# synsets1 = data[1].synsets1
+# synsets2 = data[1].synsets2
+#
+# print(sentence1)
+#
+# print(sentence2)
+#
+# aguirre = sim.aguirreSimilarity(sentence1, sentence2)
+#
+# print (aguirre)
+#
+# sim.liuWangSimilarity(synsets1, synsets2)
+#
 
-synsets1 = data[1].synsets1
-synsets2 = data[1].synsets2
+for x in data:
+    aguirre = sim.aguirreSimilarity(x.sentence1, x.sentence2)
 
-print(sentence1)
-
-print(sentence2)
-
-aguirre = sim.aguirreSimilarity(sentence1, sentence2)
-
-print (aguirre)
-
-sim.liuWangSimilarity(synsets1, synsets2)
-
-
+    print ("Sentence 1: " + ' '.join(x.sentence1) + " | Sentence 2: " + ' '.join(x.sentence2) + " -> " + str(aguirre))

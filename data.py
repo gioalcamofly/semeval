@@ -31,9 +31,9 @@ class Semeval:
         "how'd": "how did",
         "how'd'y": "how do you",
         "how'll": "how will",
-        "I'd've": "I would have",
-        "I'm": "I am",
-        "I've": "I have",
+        "i'd've": "I would have",
+        "i'm": "i am",
+        "i've": "i have",
         "isn't": "is not",
         "it'd've": "it would have",
         "let's": "let us",
@@ -140,7 +140,9 @@ class Semeval:
         sentence = sentence.lower()
 
         #Tokenize
-        tmp = word_tokenize(sentence)
+        tmp = self.expandContractions(sentence.split())
+        tmp = word_tokenize(tmp)
+
 
         #Delete stopwords
         stop_words =set(stopwords.words('english'))
@@ -155,16 +157,25 @@ class Semeval:
 
         return words
 
+    def expandContractions(self, inputWords):
+
+        words = ""
+
+        for word in inputWords:
+            if word in self.contractions:
+                words += self.contractions[word] + " "
+            else:
+                words += word + " "
+
+        return words
+
     def deletePunctuation(self, inputWords):
 
         words = []
 
         for word in inputWords:
-            # Remove contractions
-            if word in self.contractions:
-                words.append(self.contractions[word])
             # Remove punctuation marks
-            elif word in self.punctuationMarks:
+            if word in self.punctuationMarks:
                 continue
             else:
                 words.append(word)

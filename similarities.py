@@ -1,4 +1,5 @@
-from nltk.corpus import wordnet as wn
+from nltk.corpus import wordnet_ic
+from scipy import spatial
 
 
 
@@ -15,23 +16,55 @@ def getMaxSimilarityPath(word, S):
 
     return score
 
-def getPathSimilarity(synsets1, synsets2):
+def getMaxSimilarityWup(word, S):
 
-    for word1 in synsets1:
-        for word2 in synsets2:
-            print(str(word1) + ' and ' + str(word2) + ' = ' + str(word1.path_similarity(word2)))
+    score = 0.0
 
+    for synset in S:
+        tmp = word.wup_similarity(synset)
+        if tmp > score:
+            score = tmp
 
+    return score
 
+def getMaxSimilarityJcn(word, S):
+
+    score = 0.0
+    ic = wordnet_ic.ic('ic-brown.dat')
+
+    for synset in S:
+        try:
+            tmp = word.jcn_similarity(synset, ic)
+        except:
+            tmp = 0.0
+        if tmp > score:
+            score = tmp
+
+    return score
+
+def getMaxSimilarityLin(word, S):
+
+    score = 0.0
+    ic = wordnet_ic.ic('ic-brown.dat')
+
+    for synset in S:
+        try:
+            tmp = word.lin_similarity(synset, ic)
+        except:
+            tmp = 0.0
+        if tmp > score:
+            score = tmp
+
+    return score
 
 #Sentence similarity
 
 def aguirreSimilarity(sentence1, sentence2):
 
-    aligned = 0
+    aligned = 0.0
     for word in sentence1:
         if word in sentence2:
-            aligned += 1
+            aligned += 1.0
 
     return (2*aligned)/(len(sentence1) + len(sentence2))
 
@@ -43,8 +76,16 @@ def liuWangSimilarity(synsets1, synsets2):
     print(T)
 
     V1 = calculateVector(T, synsets1)
+    V2 = calculateVector(T, synsets2)
+
+    similarity = 1 - spatial.distance.cosine(V1, V2)
+
 
     print(V1)
+
+    print(V2)
+
+    print(str(similarity))
 
 
 
@@ -64,6 +105,6 @@ def calculateVector(T, S):
         if word in S:
             V.append(1.0)
         else:
-            V.append(getMaxSimilarityPath(word, S))
+            V.append(getMaxSimilarityWup(word, S))
 
     return V
