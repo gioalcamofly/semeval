@@ -1,0 +1,205 @@
+TODAS SIN STOP-WORDS
+--------------------------------------------------
+
+       Method  Count      Mean  Success  Success Perc
+0        real   1379  0.521583        0      0.000000
+1     aguirre   1379  0.476022      479     34.735315
+2    sim_path   1379  0.525925      347     25.163162
+3         wup   1379  0.625539      287     20.812183
+4   jcn_brown   1379  0.489946      376     27.266135
+5  jcn_semcor   1379  0.471529      393     28.498912
+6   lin_brown   1379  0.512183      362     26.250906
+7  lin_semcor   1379  0.479482      385     27.918782
+
+ CORRELATION: 
+
+       Method    Values
+0        real  1.000000
+1     aguirre  0.662775
+2    sim_path  0.349902
+3         wup  0.175055
+4   jcn_brown  0.396436
+5  jcn_semcor  0.416499
+6   lin_brown  0.356639
+7  lin_semcor  0.404407
+
+
+TODAS CON STOP-WORDS
+--------------------------------------------------
+
+       Method  Count      Mean  Success  Success Perc
+0        real   1379  0.521583        0      0.000000
+1     aguirre   1379  0.575906      360     26.105874
+2    sim_path   1379  0.545666      244     17.693981
+3         wup   1379  0.575023      263     19.071791
+4   jcn_brown   1379  0.536752      248     17.984046
+5  jcn_semcor   1379  0.530458      245     17.766497
+6   lin_brown   1379  0.543653      246     17.839014
+7  lin_semcor   1379  0.533952      252     18.274112
+
+ CORRELATION: 
+
+       Method    Values
+0        real  1.000000
+1     aguirre  0.518885
+2    sim_path  0.140741
+3         wup  0.102246
+4   jcn_brown  0.149960
+5  jcn_semcor  0.154575
+6   lin_brown  0.141061
+7  lin_semcor  0.152611
+
+
+CAPTIONS SIN STOP-WORDS
+--------------------------------------------------
+
+       Method  Count      Mean  Success  Success Perc
+0        real    625  0.478573        0          0.00
+1     aguirre    625  0.447413      231         36.96
+2    sim_path    625  0.565487      195         31.20
+3         wup    625  0.723792      144         23.04
+4   jcn_brown    625  0.516405      219         35.04
+5  jcn_semcor    625  0.483675      236         37.76
+6   lin_brown    625  0.558922      203         32.48
+7  lin_semcor    625  0.498749      226         36.16
+
+ CORRELATION: 
+
+       Method    Values
+0        real  1.000000
+1     aguirre  0.749298
+2    sim_path  0.712717
+3         wup  0.515960
+4   jcn_brown  0.727418
+5  jcn_semcor  0.724851
+6   lin_brown  0.684754
+7  lin_semcor  0.720244
+
+
+CAPTIONS CON STOP-WORDS
+--------------------------------------------------
+
+       Method  Count      Mean  Success  Success Perc
+0        real    625  0.478573        0          0.00
+1     aguirre    625  0.564251      138         22.08
+2    sim_path    625  0.533576      119         19.04
+3         wup    625  0.580414      132         21.12
+4   jcn_brown    625  0.521121      122         19.52
+5  jcn_semcor    625  0.509558      119         19.04
+6   lin_brown    625  0.531887      121         19.36
+7  lin_semcor    625  0.515705      125         20.00
+
+ CORRELATION: 
+
+       Method    Values
+0        real  1.000000
+1     aguirre  0.509059
+2    sim_path  0.230074
+3         wup  0.172528
+4   jcn_brown  0.240596
+5  jcn_semcor  0.245273
+6   lin_brown  0.228885
+7  lin_semcor  0.245974
+
+
+FORUMS SIN STOP-WORDS
+--------------------------------------------------
+
+       Method  Count      Mean  Success  Success Perc
+0        real    254  0.498425        0      0.000000
+1     aguirre    254  0.430063       62     24.409449
+2    sim_path    254  0.477347       57     22.440945
+3         wup    254  0.539084       56     22.047244
+4   jcn_brown    254  0.437379       58     22.834646
+5  jcn_semcor    254  0.429583       61     24.015748
+6   lin_brown    254  0.431560       57     22.440945
+7  lin_semcor    254  0.424087       60     23.622047
+
+ CORRELATION: 
+
+       Method    Values
+0        real  1.000000
+1     aguirre  0.426476
+2    sim_path  0.224307
+3         wup  0.155467
+4   jcn_brown  0.261545
+5  jcn_semcor  0.270327
+6   lin_brown  0.241857
+7  lin_semcor  0.254787
+
+
+FORUMS CON STOP-WORDS
+--------------------------------------------------
+
+       Method  Count      Mean  Success  Success Perc
+0        real    254  0.498425        0      0.000000
+1     aguirre    254  0.653751       34     13.385827
+2    sim_path    254  0.673731       47     18.503937
+3         wup    254  0.676240       45     17.716535
+4   jcn_brown    254  0.672345       47     18.503937
+5  jcn_semcor    254  0.672047       47     18.503937
+6   lin_brown    254  0.672313       47     18.503937
+7  lin_semcor    254  0.671940       47     18.503937
+
+ CORRELATION: 
+
+       Method    Values
+0        real  1.000000
+1     aguirre  0.512074
+2    sim_path  0.012004
+3         wup  0.013687
+4   jcn_brown  0.011400
+5  jcn_semcor  0.011807
+6   lin_brown  0.011979
+7  lin_semcor  0.012871
+
+
+NEWS SIN STOP-WORDS
+--------------------------------------------------
+
+       Method  Count      Mean  Success  Success Perc
+0        real    500  0.587110        0           0.0
+1     aguirre    500  0.535131      186          37.2
+2    sim_path    500  0.501151       95          19.0
+3         wup    500  0.546641       87          17.4
+4   jcn_brown    500  0.483576       99          19.8
+5  jcn_semcor    500  0.477656       96          19.2
+6   lin_brown    500  0.494717      102          20.4
+7  lin_semcor    500  0.483537       99          19.8
+
+ CORRELATION: 
+
+       Method    Values
+0        real  1.000000
+1     aguirre  0.697936
+2    sim_path  0.192703
+3         wup  0.110023
+4   jcn_brown  0.224826
+5  jcn_semcor  0.234228
+6   lin_brown  0.205893
+7  lin_semcor  0.223158
+
+
+NEWS CON STOP-WORDS
+--------------------------------------------------
+       Method  Count      Mean  Success  Success Perc
+0        real    500  0.587110        0           0.0
+1     aguirre    500  0.550929      188          37.6
+2    sim_path    500  0.495722       78          15.6
+3         wup    500  0.516865       86          17.2
+4   jcn_brown    500  0.487409       79          15.8
+5  jcn_semcor    500  0.484657       79          15.8
+6   lin_brown    500  0.493002       78          15.6
+7  lin_semcor    500  0.486662       80          16.0
+
+ CORRELATION: 
+
+       Method    Values
+0        real  1.000000
+1     aguirre  0.671972
+2    sim_path  0.185007
+3         wup  0.141249
+4   jcn_brown  0.200547
+5  jcn_semcor  0.204337
+6   lin_brown  0.187505
+7  lin_semcor  0.198511

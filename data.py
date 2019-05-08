@@ -145,13 +145,13 @@ class Semeval:
 
 
         #Delete stopwords
-        stop_words =set(stopwords.words('english'))
+        # stop_words =set(stopwords.words('english'))
 
         words = []
-
-        for w in tmp:
-            if w not in stop_words:
-                words.append(w)
+        words = tmp
+        # for w in tmp:
+        #     if w not in stop_words:
+        #         words.append(w)
 
         words = self.deletePunctuation(words)
 

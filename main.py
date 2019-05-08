@@ -3,49 +3,42 @@ import csv
 from data import Semeval
 import similarities as sim
 import pandas as pd
+from nltk.corpus import wordnet_ic
+import statistics
+import numpy as np
 
 
 f = open('../stsbenchmark/sts-test.csv')
 
-w = open('./out.txt', 'w')
+w = open('./out.txt', 'a')
 
 reader = csv.reader(f, delimiter='\t', quoting=csv.QUOTE_NONE)
 
+
+brown_ic = wordnet_ic.ic('ic-brown.dat')
+semcor_ic = wordnet_ic.ic('ic-semcor.dat')
+
+scores = {"real" : [],
+          "aguirre" : [],
+          "sim_path" : [],
+          "wup" : [],
+          "jcn_brown" : [],
+          "jcn_semcor" : [],
+          "lin_brown" : [],
+          "lin_semcor" : []}
 
 data = []
 
 for row in reader:
 
-    tmp = Semeval(row[0], row[1], row[2], row[4], row[5], row[6])
-    data.append(tmp)
+    if row[0] == 'main-news':
+        tmp = Semeval(row[0], row[1], row[2], row[4], row[5], row[6])
+        data.append(tmp)
 
-
-# sentence1 = data[1].sentence1
-# sentence2 = data[1].sentence2
-#
-# synsets1 = data[1].synsets1
-# synsets2 = data[1].synsets2
-#
-# print(sentence1)
-#
-# print(sentence2)
-#
-# aguirre = sim.aguirreSimilarity(sentence1, sentence2)
-#
-# print (aguirre)
-#
-# sim.liuWangSimilarity(synsets1, synsets2)
-#
-
-# for x in data:
-#     aguirre = sim.aguirreSimilarity(x.sentence1, x.sentence2)
-#
-#     w.write("Sentence 1: " + ' '.join(x.sentence1) + " | Sentence 2: " + ' '.join(x.sentence2) + " -> " + str(aguirre) + "\n")
 
 def normalize(data, ori_min, ori_max, min, max):
 
     ori = ori_max - ori_min
-    obj = max - min
 
     valueScaled = float(float(data) - ori_min) / float(ori)
 
@@ -56,7 +49,6 @@ def normalize(data, ori_min, ori_max, min, max):
 def calcData(data, method):
 
     count = 0
-    mean = 0.0
 
     success = 0
     margin = 0.1
@@ -65,27 +57,24 @@ def calcData(data, method):
         count +=1
 
         if method == 'real':
-            mean += float(d.score)
+            scores[method].append(float(d.score))
 
         elif method == 'aguirre':
-            aguirre = sim.aguirreSimilarity(d.sentence1, d.sentence2)
-            if float(d.score) - margin < aguirre < float(d.score) + margin:
-                success += 1
-            mean += aguirre
+            scores[method].append(float(sim.aguirreSimilarity(d.sentence1, d.sentence2)))
 
-        elif method == 'sim_path':
-            sim_path = sim.liuWangSimilarity(d.synsets1, d.synsets2, method)
-            if float(d.score) - margin < sim_path < float(d.score) + margin:
-                success += 1
-            mean += sim_path
+        elif method == 'sim_path' or method == 'wup':
+            scores[method].append(float(sim.liuWangSimilarity(d.synsets1, d.synsets2, method)))
 
-        elif method == 'wup':
-            sim_path = sim.liuWangSimilarity(d.synsets1, d.synsets2, method)
-            if float(d.score) - margin < sim_path < float(d.score) + margin:
-                success += 1
-            mean += sim_path
+        elif method.endswith('brown'):
+            scores[method].append(float(sim.liuWangSimilarity(d.synsets1, d.synsets2, method, brown_ic)))
 
-    return count, mean/count, success
+        elif method.endswith('semcor'):
+            scores[method].append(float(sim.liuWangSimilarity(d.synsets1, d.synsets2, method, semcor_ic)))
+
+        if method != 'real' and float(d.score) - margin < scores[method][-1] < float(d.score) + margin:
+            success += 1
+
+    return count, statistics.mean(scores[method]), success
 
 def fillDataFrame(data, dataset, method='real'):
 
@@ -102,7 +91,7 @@ def fillDataFrame(data, dataset, method='real'):
 for d in data:
     d.score = normalize(d.score, 0, 5, 0, 1)
 
-methods = ['real', 'aguirre', 'sim_path', 'wup']
+methods = ['real', 'aguirre', 'sim_path', 'wup', 'jcn_brown', 'jcn_semcor', 'lin_brown', 'lin_semcor']
 
 dataset = {'Method': methods,
            'Count': [],
@@ -116,7 +105,19 @@ for method in methods:
 
 df = pd.DataFrame(dataset)
 
-print(df[['Method', 'Count', 'Mean', 'Success', 'Success Perc']])
+w.write(str(df[['Method', 'Count', 'Mean', 'Success', 'Success Perc']]))
 
+w.write('\n\n CORRELATION: \n\n')
 
+corr = []
 
+for method in methods:
+    corr.append(np.corrcoef(scores['real'], scores[method])[0, 1])
+    # print ('Correlation of ' + key + ' -> ' + str(np.corrcoef(scores['real'], scores[key])[0, 1]))
+
+dataset_2 = {'Method': methods,
+           'Values': corr}
+
+df = pd.DataFrame(dataset_2)
+
+w.write(str(df[['Method', 'Values']]))
